@@ -1,10 +1,19 @@
 class TracebackEntry:
+    """A traceback entry with file path, line number, function and source
+    code.
+
+    """
+
     path: string
     line_number: i64
     function: string
     source_code: string
 
 class Traceback:
+    """A traceback.
+
+    """
+
     stack: [TracebackEntry]
 
     def __str__(self) -> string:
