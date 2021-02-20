@@ -1,0 +1,5 @@
+[package]
+name = "traceback"
+version = "0.1.0"
+authors = ["Erik Moqvist <erik.moqvist@gmail.com>"]
+description = "Traceback utilities."

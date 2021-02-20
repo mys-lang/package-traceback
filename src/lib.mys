@@ -1,0 +1,58 @@
+class TracebackEntry:
+    path: string
+    line_number: i64
+    function: string
+    source_code: string
+
+class Traceback:
+    stack: [TracebackEntry]
+
+    def __str__(self) -> string:
+        lines = ["Traceback (most recent call last):"]
+
+        for entry in self.stack:
+            lines += (f"  File: \"{entry.path}\", line {entry.line_number} "
+                      f"in {entry.function}")
+            lines += f"    {entry.source_code}"
+
+        return "\n".join(lines)
+
+def traceback() -> Traceback:
+    """Returns the current traceback.
+
+    """
+
+    stack: [TracebackEntry] = []
+    path: string = None
+    line_number: i64 = -1
+    function: string = None
+    source_code: string = None
+
+    c"""
+    mys::TracebackEntry *item_p;
+    mys::TracebackEntryInfo *entry_info_p;
+
+    item_p = mys::traceback_bottom_p->next_p;
+
+    while ((item_p != mys::traceback_top_p) && false) {
+        path = String(item_p->info_p->path_p);
+        entry_info_p = &item_p->info_p->entries_info_p[item_p->index];
+        line_number = entry_info_p->line_number;
+        function = String(entry_info_p->name_p);
+        source_code = String(entry_info_p->code_p);
+    """
+
+    stack += TracebackEntry(path, line_number, function, source_code)
+
+    c"""
+        item_p = item_p->next_p;
+    }
+    """
+
+    return Traceback(stack)
+
+@test
+def test_traceback():
+    tb = traceback()
+    assert len(tb.stack) == 0
+    assert "Traceback (most recent call last):" in str(tb)
