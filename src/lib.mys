@@ -38,12 +38,14 @@ def traceback() -> Traceback:
     source_code: string = None
 
     c"""
+    #if defined(MYS_TRACEBACK)
+
     mys::TracebackEntry *item_p;
     mys::TracebackEntryInfo *entry_info_p;
 
     item_p = mys::traceback_bottom_p->next_p;
 
-    while ((item_p != mys::traceback_top_p) && false) {
+    while (item_p != mys::traceback_top_p) {
         path = String(item_p->info_p->path_p);
         entry_info_p = &item_p->info_p->entries_info_p[item_p->index];
         line_number = entry_info_p->line_number;
@@ -56,6 +58,8 @@ def traceback() -> Traceback:
     c"""
         item_p = item_p->next_p;
     }
+
+    #endif
     """
 
     return Traceback(stack)
@@ -63,5 +67,16 @@ def traceback() -> Traceback:
 @test
 def test_traceback():
     tb = traceback()
-    assert len(tb.stack) == 0
-    assert "Traceback (most recent call last):" in str(tb)
+
+    assert len(tb.stack) == 1
+
+    entry = tb.stack[0]
+    assert entry.path == "./src/lib.mys"
+    assert entry.line_number == 69
+    assert entry.function == "test_traceback"
+    assert entry.source_code == "tb = traceback()"
+
+    assert str(tb) == (
+        "Traceback (most recent call last):\n"
+        "  File: \"./src/lib.mys\", line 69 in test_traceback\n"
+        "    tb = traceback()")
