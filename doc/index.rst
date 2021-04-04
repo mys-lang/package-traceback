@@ -1,3 +1,5 @@
+|test|_
+
 About
 =====
 
@@ -10,4 +12,7 @@ Functions and types
 
 .. mysfile:: src/lib.mys
 
-.. _Mys programming language: https://mys.readthedocs.io/en/latest/
+.. |test| image:: https://github.com/mys-lang/package-traceback/actions/workflows/pythonpackage.yml/badge.svg
+.. _test: https://github.com/mys-lang/package-traceback/actions/workflows/pythonpackage.yml
+
+.. _Mys programming language: https://mys-lang.org
