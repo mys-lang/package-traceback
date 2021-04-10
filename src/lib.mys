@@ -20,9 +20,9 @@ class Traceback:
         lines = ["Traceback (most recent call last):"]
 
         for entry in self.stack:
-            lines += (f"  File: \"{entry.path}\", line {entry.line_number} "
-                      f"in {entry.function}")
-            lines += f"    {entry.source_code}"
+            lines.append(f"  File: \"{entry.path}\", line {entry.line_number} "
+                         f"in {entry.function}")
+            lines.append(f"    {entry.source_code}")
 
         return "\n".join(lines)
 
@@ -53,7 +53,7 @@ def traceback() -> Traceback:
         source_code = String(entry_info_p->code_p);
     """
 
-    stack += TracebackEntry(path, line_number, function, source_code)
+    stack.append(TracebackEntry(path, line_number, function, source_code))
 
     c"""
         item_p = item_p->next_p;
