@@ -16,7 +16,7 @@ class Traceback:
 
     stack: [TracebackEntry]
 
-    def __str__(self) -> string:
+    func __str__(self) -> string:
         lines = ["Traceback (most recent call last):"]
 
         for entry in self.stack:
@@ -26,7 +26,7 @@ class Traceback:
 
         return "\n".join(lines)
 
-def traceback() -> Traceback:
+func traceback() -> Traceback:
     """Returns the current traceback.
 
     """
@@ -65,7 +65,7 @@ def traceback() -> Traceback:
     return Traceback(stack)
 
 @test
-def test_traceback():
+func test_traceback():
     tb = traceback()
 
     assert len(tb.stack) == 1
