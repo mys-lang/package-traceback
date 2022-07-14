@@ -64,19 +64,18 @@ func traceback() -> Traceback:
 
     return Traceback(stack)
 
-@test
-func test_traceback():
+test traceback():
     tb = traceback()
 
     assert len(tb.stack) == 1
 
     entry = tb.stack[0]
     assert entry.path == "./src/lib.mys"
-    assert entry.line_number == 69
-    assert entry.function == "test_traceback"
+    assert entry.line_number == 68
+    assert entry.function == "traceback"
     assert entry.source_code == "tb = traceback()"
 
     assert str(tb) == (
         "Traceback (most recent call last):\n"
-        "  File: \"./src/lib.mys\", line 69 in test_traceback\n"
+        "  File: \"./src/lib.mys\", line 68 in traceback\n"
         "    tb = traceback()")
