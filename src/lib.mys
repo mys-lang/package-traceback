@@ -67,7 +67,7 @@ func traceback() -> Traceback:
 test traceback():
     tb = traceback()
 
-    assert len(tb.stack) == 1
+    assert tb.stack.length() == 1
 
     entry = tb.stack[0]
     assert entry.path == "./src/lib.mys"
