@@ -32,10 +32,10 @@ func traceback() -> Traceback:
     """
 
     stack: [TracebackEntry] = []
-    path: string = None
+    path: string? = None
     line_number: i64 = -1
-    function: string = None
-    source_code: string = None
+    function: string? = None
+    source_code: string? = None
 
     c"""
     #if defined(MYS_TRACEBACK)
